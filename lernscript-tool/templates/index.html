@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lernscript-Generator</title>
+<style>
+  :root { --blue:#0071B2; --light:#D2E8F4; --orange:#FE5000; }
+  body { font-family: 'Source Sans Pro', 'Segoe UI', sans-serif; margin:0; background:var(--light); color:#161616; }
+  header { background:var(--blue); color:#fff; padding:1.2rem 2rem; }
+  main { max-width:620px; margin:2rem auto; background:#fff; padding:2rem; border-radius:8px;
+         box-shadow:0 2px 8px rgba(0,0,0,.08); }
+  label { display:block; font-weight:600; margin:1rem 0 .3rem; }
+  input[type=file], input[type=text], input[type=password] { width:100%; padding:.55rem; border:1px solid #B8CDDD;
+         border-radius:5px; box-sizing:border-box; }
+  button { margin-top:1.5rem; background:var(--orange); color:#fff; border:0; padding:.8rem 1.6rem;
+           font-size:1rem; font-weight:700; border-radius:5px; cursor:pointer; }
+  button:disabled { opacity:.5; }
+  .hint { font-size:.85rem; color:#666; margin-top:.25rem; }
+  #status { margin-top:1rem; font-weight:600; }
+</style>
+</head>
+<body>
+<header><h1>Lernscript-Generator</h1></header>
+<main>
+  <p>Ein oder mehrere Kursmodul-PDFs hochladen → KI erstellt pro Datei ein eigenes
+     beginnerfreundliches Lernscript im WBS-Stil. Uploads werden nur temporär
+     verarbeitet und nicht gespeichert.</p>
+  <form id="f">
+    <label>Kurs-PDF(s)</label>
+    <input type="file" name="files" accept="application/pdf" multiple required>
+    <div class="hint">Mehrere Dateien möglich — jede erzeugt ein eigenes Lernscript (max. 25 MB insgesamt).</div>
+    <label>Modulnummer (fürs Deckblatt)</label>
+    <input type="text" name="modulnummer" placeholder="z. B. NEINT1">
+    <label>Eigener Anthropic-API-Key (optional)</label>
+    <input type="password" name="user_api_key" placeholder="Nur nötig, wenn Freikontingent aufgebraucht">
+    <div class="hint">3 Generierungen frei (pro erzeugtem Skript), danach eigener Key erforderlich.</div>
+    <button type="submit">Lernscript(e) erstellen</button>
+  </form>
+  <div id="status"></div>
+</main>
+<script>
+document.getElementById('f').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = e.target.querySelector('button'); const st = document.getElementById('status');
+  btn.disabled = true; st.textContent = 'Generiere… (kann bei mehreren Dateien einige Minuten dauern)';
+  try {
+    const r = await fetch('/generate', { method:'POST', body:new FormData(e.target) });
+    if (!r.ok) { st.textContent = 'Fehler: ' + (await r.json()).detail; return; }
+    const { results } = await r.json();
+    st.textContent = `Fertig — lade ${results.length} Datei(en) herunter…`;
+    // Einzelne Downloads nacheinander (statt ZIP) — kurze Pause zwischen den
+    // Klicks, damit Browser die Downloads nicht als Popup-Flut blockieren.
+    for (let i = 0; i < results.length; i++) {
+      const item = results[i];
+      const dl = document.createElement('a');
+      dl.href = '/download/' + item.id;
+      dl.download = item.filename;
+      document.body.appendChild(dl);
+      dl.click();
+      dl.remove();
+      if (i < results.length - 1) await new Promise(res => setTimeout(res, 500));
+    }
+    st.textContent = `Fertig — ${results.length} Lernscript(e) heruntergeladen.`;
+  } catch(err) { st.textContent = 'Netzwerkfehler: ' + err; }
+  finally { btn.disabled = false; }
+});
+</script>
+</body>
+</html>
