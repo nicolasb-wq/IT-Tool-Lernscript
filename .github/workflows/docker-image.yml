@@ -1,0 +1,65 @@
+# CI-Pipeline: Linting (ruff) → Tests (pytest, Matrix 3.11–3.13) → Docker-Build-Check
+# Läuft bei jedem Push und bei Pull Requests (bewusst ohne Branch-Filter,
+# damit der Workflow unabhängig vom Default-Branch-Namen funktioniert).
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    name: Lint (ruff)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install ruff
+        run: pip install ruff
+      - name: Run ruff
+        run: ruff check .
+
+  test:
+    name: Tests (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run pytest
+        run: pytest -v
+
+  docker:
+    name: Docker-Build-Check
+    runs-on: ubuntu-latest
+    # Build-Check erst nach grünen Tests — spart Minuten bei kaputten Commits
+    needs: [lint, test]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker build -t lernscript-ci-check .
+      - name: Smoke-Test image (App startet, /health antwortet)
+        run: |
+          docker run -d --name smoke -p 8000:8000 \
+            -e ANTHROPIC_API_KEY=sk-dummy-ci \
+            -e QUOTA_DB=/tmp/quota.sqlite3 \
+            lernscript-ci-check
+          # Auf App-Start warten (max. 30 s)
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:8000/health; then
+              echo "Health-Check OK"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "App wurde nicht rechtzeitig gesund:"
+          docker logs smoke
+          exit 1
