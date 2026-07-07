@@ -56,6 +56,16 @@ async def login_page(request: Request):
     return templates.TemplateResponse(request, "login.html", {"error": None})
 
 
+@app.get("/impressum", response_class=HTMLResponse)
+async def impressum_page(request: Request):
+    return templates.TemplateResponse(request, "impressum.html", {})
+
+
+@app.get("/datenschutz", response_class=HTMLResponse)
+async def datenschutz_page(request: Request):
+    return templates.TemplateResponse(request, "datenschutz.html", {})
+
+
 @app.post("/login", response_class=HTMLResponse)
 async def login_submit(request: Request, email: str = Form(...), password: str = Form(...)):
     db = get_session()
