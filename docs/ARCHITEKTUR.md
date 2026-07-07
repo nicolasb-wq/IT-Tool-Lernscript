@@ -67,6 +67,17 @@ W4: Tests ausbauen (E2E mit httpx), Doku, Portfolio-Politur, Beta-Nutzer.
   im Smoke-Test gesetzt, Tesseract-Installations-Step für die Test-Matrix.
   Kleinere Verbesserung: TTL-Purge des Ergebnis-Speichers auch im Download-Pfad.
 
+- DSGVO-Texte: umgesetzt — Impressum und Datenschutzerklärung als echte,
+  öffentlich (ohne Login) erreichbare Seiten (/impressum, /datenschutz),
+  von Login/Register verlinkt. Inhaltlich beschreibt die Datenschutzerklärung
+  die tatsächlichen Verarbeitungsvorgänge (Konto, temporäre PDF-Verarbeitung,
+  Anthropic-API-Übermittlung, Session-Cookie, Hetzner-Hosting).
+  WICHTIG, kein Rechtsrat: Entwurf mit echten Kontaktdaten des Betreibers,
+  vor produktivem Betrieb fachlich prüfen lassen — insbesondere die
+  internationale Datenübermittlung an Anthropic (USA) und die Frage, ob die
+  private-Tätigkeit-Ausnahme (Art. 2 Abs. 2 lit. c DSGVO) hier überhaupt
+  greift (eher nein, sobald fremde Dritte sich registrieren können).
+
 ## Sicherheits-/DSGVO-Notizen
 - Nutzer-API-Keys niemals loggen oder speichern (nur pro Request im RAM).
 - Hinweis in UI: Kursinhalte werden an Anthropic-API übertragen
