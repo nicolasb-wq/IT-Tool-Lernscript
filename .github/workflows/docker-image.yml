@@ -37,7 +37,9 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Run pytest
-        run: pytest -v
+        # WICHTIG: 'python -m pytest' statt 'pytest' — nur so liegt das Repo-Root
+        # auf dem sys.path und die Imports 'app'/'tests.conftest' sind auffindbar.
+        run: python -m pytest -v
 
   docker:
     name: Docker-Build-Check
