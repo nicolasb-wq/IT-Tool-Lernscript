@@ -1,0 +1,11 @@
+# Caddy holt und erneuert Let's-Encrypt-Zertifikate automatisch für {$DOMAIN}.
+{$DOMAIN} {
+    reverse_proxy app:8000
+
+    # Upload-Limit passend zur App (25 MB + etwas Puffer für Multipart-Overhead)
+    request_body {
+        max_size 30MB
+    }
+
+    encode gzip
+}
