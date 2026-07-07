@@ -1,5 +1,7 @@
 # Lernscript-Generator
 
+[![CI](https://github.com/nicolasb-wq/IT-Tool-Lernscript/actions/workflows/docker-image.yml/badge.svg?branch=main)](https://github.com/nicolasb-wq/IT-Tool-Lernscript/actions/workflows/docker-image.yml)
+
 Web-App: Kursmodul-PDF hochladen → Claude erstellt beginnerfreundliches
 Lernscript-JSON → ReportLab rendert es im WBS-Stil (gemessene Originalfarben).
 
