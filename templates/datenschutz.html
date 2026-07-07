@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Datenschutzerklärung – Lernscript-Generator</title>
+<style>
+  :root { --blue:#0071B2; --light:#D2E8F4; }
+  body { font-family: 'Source Sans Pro','Segoe UI',sans-serif; margin:0; background:var(--light); color:#161616; }
+  header { background:var(--blue); color:#fff; padding:1.2rem 2rem; }
+  main { max-width:760px; margin:2rem auto; background:#fff; padding:2rem; border-radius:8px;
+         box-shadow:0 2px 8px rgba(0,0,0,.08); line-height:1.6; }
+  h2 { color:var(--blue); margin-top:2rem; }
+  h3 { margin-top:1.2rem; }
+  .hinweis { background:#F0F0F0; border-left:3px solid #868686; padding:.8rem 1rem; margin-bottom:1.5rem; font-size:.9rem; }
+  .achtung { background:#FDEAE2; border-left:3px solid #FE5000; padding:.8rem 1rem; margin:1rem 0; font-size:.9rem; }
+  a { color:var(--blue); }
+  table { border-collapse:collapse; width:100%; margin:1rem 0; font-size:.9rem; }
+  td, th { border:1px solid #B8CDDD; padding:.5rem; text-align:left; vertical-align:top; }
+  th { background:var(--light); }
+</style>
+</head>
+<body>
+<header><h1>Lernscript-Generator</h1></header>
+<main>
+  <h2 style="margin-top:0;">Datenschutzerklärung</h2>
+
+  <div class="hinweis">
+    Stand: dieses Dokument ist ein Entwurf für ein privates Lernprojekt und
+    ersetzt keine Rechtsberatung. Bei geschäftlicher Nutzung oder Zweifeln
+    bitte fachlich prüfen lassen.
+  </div>
+
+  <h2>1. Verantwortlicher</h2>
+  <p>
+    Nicolas Max Bauer<br>
+    Blumenstraße 37, 23898 Sandesneben, Deutschland<br>
+    E-Mail: <a href="mailto:nicolas_b@outlook.de">nicolas_b@outlook.de</a><br>
+    Telefon: 0155 60 70 9559
+  </p>
+
+  <h2>2. Übersicht der Verarbeitungen</h2>
+  <table>
+    <tr><th>Zweck</th><th>Daten</th><th>Rechtsgrundlage</th></tr>
+    <tr><td>Nutzerkonto &amp; Login</td><td>E-Mail-Adresse, Passwort (gehasht)</td><td>Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung)</td></tr>
+    <tr><td>Freikontingent-Zählung</td><td>Anzahl Generierungen pro Konto</td><td>Art. 6 Abs. 1 lit. b DSGVO</td></tr>
+    <tr><td>Lernscript-Erstellung</td><td>Inhalt hochgeladener Kurs-PDFs (temporär)</td><td>Art. 6 Abs. 1 lit. b DSGVO</td></tr>
+    <tr><td>Sitzungsverwaltung</td><td>Signiertes Session-Cookie</td><td>Art. 6 Abs. 1 lit. f DSGVO (technisch notwendig)</td></tr>
+  </table>
+
+  <h2>3. Registrierung und Nutzerkonto</h2>
+  <p>
+    Für die Nutzung ist eine Registrierung mit E-Mail-Adresse, selbst gewähltem
+    Passwort und einem Einladungscode erforderlich. Das Passwort wird
+    ausschließlich als Hashwert (bcrypt) gespeichert, niemals im Klartext.
+    Diese Daten werden für die Dauer des Nutzerkontos gespeichert und bei
+    Löschung des Kontos entfernt.
+  </p>
+
+  <h2>4. Hochgeladene Kursunterlagen (PDF)</h2>
+  <p>
+    Hochgeladene PDF-Dateien werden ausschließlich zur Erstellung des
+    angeforderten Lernscripts verarbeitet. Der Inhalt wird
+    <strong>nicht dauerhaft gespeichert</strong>: Die Verarbeitung erfolgt im
+    Arbeitsspeicher, das erzeugte Lernscript-PDF liegt maximal 15 Minuten in
+    einem kurzlebigen Zwischenspeicher zum Download bereit und wird danach
+    automatisch bzw. nach dem ersten Abruf gelöscht.
+  </p>
+
+  <div class="achtung">
+    <strong>Weitergabe an Dritte (USA):</strong> Zur inhaltlichen Erstellung
+    des Lernscripts wird der extrahierte Text an die API des Anbieters
+    Anthropic (USA) übermittelt. Dabei kann es zu einer Datenübermittlung in
+    ein Land außerhalb der EU/des EWR kommen.<br><br>
+    <strong>Unsicher:</strong> Welche konkrete Garantie (z. B. EU-Standardvertragsklauseln
+    oder ein vergleichbarer Mechanismus) Anthropic hierfür aktuell bereitstellt,
+    kann an dieser Stelle nicht verlässlich bestätigt werden — bitte die
+    aktuellen Angaben direkt beim Anbieter prüfen, bevor diese Erklärung
+    produktiv verwendet wird.
+  </div>
+
+  <h2>5. Cookies / Sitzungsverwaltung</h2>
+  <p>
+    Es wird ein technisch notwendiges, signiertes Session-Cookie gesetzt, um
+    den Login-Status zu erhalten. Es werden keine Tracking-, Analyse- oder
+    Marketing-Cookies eingesetzt.
+  </p>
+
+  <h2>6. Hosting</h2>
+  <p>
+    Diese Anwendung wird auf einem Server des Anbieters Hetzner Online GmbH
+    (Deutschland/EU) betrieben. Backups werden verschlüsselt lokal auf dem
+    Server vorgehalten.
+  </p>
+
+  <h2>7. Speicherdauer</h2>
+  <p>
+    Kontodaten: bis zur Löschung des Kontos durch die betroffene Person.
+    Hochgeladene PDF-Inhalte: nur für die Dauer der Verarbeitung, siehe
+    Abschnitt 4. Erzeugte Lernscript-PDFs: maximal 15 Minuten oder bis zum
+    ersten Download.
+  </p>
+
+  <h2>8. Rechte der betroffenen Person</h2>
+  <p>
+    Es besteht das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16),
+    Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18),
+    Datenübertragbarkeit (Art. 20) sowie Widerspruch (Art. 21) gegen die
+    Verarbeitung. Anfragen bitte an die oben genannte E-Mail-Adresse.
+  </p>
+
+  <h3>Beschwerderecht</h3>
+  <p>
+    Es besteht das Recht auf Beschwerde bei einer Datenschutz-Aufsichtsbehörde.
+    Zuständig ist voraussichtlich (Glaube ich, bitte selbst verifizieren) das
+    Unabhängige Landeszentrum für Datenschutz Schleswig-Holstein (ULD).
+  </p>
+
+  <h2>9. Änderungen dieser Erklärung</h2>
+  <p>
+    Diese Datenschutzerklärung wird bei Änderungen der Datenverarbeitung
+    entsprechend angepasst.
+  </p>
+
+  <p style="margin-top:2rem;"><a href="/">← Zurück zur Startseite</a></p>
+</main>
+</body>
+</html>
